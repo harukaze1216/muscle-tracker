@@ -3,43 +3,40 @@ import { useCallback } from 'react';
 import { WorkoutSession } from '../types/workout';
 import DataService from '../services/dataService';
 
-// DataServiceのシングルトンインスタンス
-const dataService = new DataService();
-
 export const useDataService = () => {
   const saveSession = useCallback(async (session: WorkoutSession): Promise<void> => {
-    return dataService.saveSession(session);
+    return DataService.saveWorkoutSession(session);
   }, []);
 
   const getSession = useCallback(async (id: string): Promise<WorkoutSession | null> => {
-    return dataService.getSession(id);
+    return DataService.getWorkoutSession(id);
   }, []);
 
   const getAllSessions = useCallback(async (): Promise<WorkoutSession[]> => {
-    return dataService.getAllSessions();
+    return DataService.getAllWorkoutSessions();
   }, []);
 
   const getSessionsByDateRange = useCallback(async (
     startDate: string, 
     endDate: string
   ): Promise<WorkoutSession[]> => {
-    return dataService.getSessionsByDateRange(startDate, endDate);
+    return DataService.getWorkoutSessionsByDateRange(startDate, endDate);
   }, []);
 
   const updateSession = useCallback(async (session: WorkoutSession): Promise<void> => {
-    return dataService.updateSession(session);
+    return DataService.updateWorkoutSession(session);
   }, []);
 
   const deleteSession = useCallback(async (id: string): Promise<void> => {
-    return dataService.deleteSession(id);
+    return DataService.deleteWorkoutSession(id);
   }, []);
 
   const clearAllData = useCallback(async (): Promise<void> => {
-    return dataService.clearAllData();
+    return DataService.clearAllData();
   }, []);
 
   const getStorageInfo = useCallback(() => {
-    return dataService.getStorageInfo();
+    return DataService.getStorageInfo();
   }, []);
 
   return {

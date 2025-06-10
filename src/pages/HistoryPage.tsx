@@ -23,7 +23,7 @@ const HistoryPage: React.FC = () => {
   const loadSessions = async () => {
     setIsLoading(true);
     try {
-      const allSessions = await DataService.getWorkoutSessions();
+      const allSessions = await DataService.getAllWorkoutSessions();
       setSessions(sortByDate(allSessions, true));
     } catch (error) {
       console.error('セッションの読み込みに失敗しました:', error);

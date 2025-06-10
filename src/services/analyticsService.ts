@@ -23,7 +23,7 @@ export class AnalyticsService {
   static async updateCache(): Promise<void> {
     try {
       const [sessions, templates] = await Promise.all([
-        DataService.getWorkoutSessions(),
+        DataService.getAllWorkoutSessions(),
         DataService.getExerciseTemplates(),
       ]);
       

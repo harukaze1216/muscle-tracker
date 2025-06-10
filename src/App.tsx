@@ -6,7 +6,7 @@ import WorkoutPage from './pages/WorkoutPage';
 import HistoryPage from './pages/HistoryPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import SettingsPage from './pages/SettingsPage';
-import { DataService } from './services/dataService';
+import DataService from './services/dataService';
 import './App.css';
 
 function App() {
