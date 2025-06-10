@@ -68,6 +68,7 @@ export class FirestoreService {
       const docRef = doc(db, this.COLLECTIONS.WORKOUT_SESSIONS, session.id);
       const sessionData: Partial<FirestoreWorkoutSession> = {
         ...session,
+        createdAt: Timestamp.fromDate(session.createdAt),
         updatedAt: Timestamp.fromDate(new Date()),
       };
       delete sessionData.id; // IDは更新しない
