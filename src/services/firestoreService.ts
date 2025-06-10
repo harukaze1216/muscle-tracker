@@ -4,6 +4,7 @@ import {
   collection,
   doc,
   addDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
   getDocs,
@@ -74,7 +75,7 @@ export class FirestoreService {
         updatedAt: Timestamp.fromDate(new Date()),
       };
       
-      await updateDoc(docRef, sessionData);
+      await setDoc(docRef, sessionData, { merge: true });
     } catch (error) {
       console.error('Failed to update workout session:', error);
       throw new Error('ワークアウトセッションの更新に失敗しました');
@@ -116,16 +117,9 @@ export class FirestoreService {
         updatedAt: Timestamp.fromDate(new Date()),
       };
 
-      if (session.id && session.id.length > 0) {
-        // 既存セッションの更新
-        const sessionRef = doc(db, this.COLLECTIONS.WORKOUT_SESSIONS, session.id);
-        await updateDoc(sessionRef, sessionData);
-      } else {
-        // 新規セッションの作成
-        const sessionsRef = collection(db, this.COLLECTIONS.WORKOUT_SESSIONS);
-        const docRef = await addDoc(sessionsRef, sessionData);
-        session.id = docRef.id;
-      }
+      // setDocを使用して、存在しなければ作成、存在すれば更新
+      const sessionRef = doc(db, this.COLLECTIONS.WORKOUT_SESSIONS, session.id);
+      await setDoc(sessionRef, sessionData, { merge: true });
     } catch (error) {
       console.error('Failed to save workout session:', error);
       throw new Error('ワークアウトセッションの保存に失敗しました');
@@ -241,7 +235,7 @@ export class FirestoreService {
           difficulty: template.difficulty,
           description: template.description,
         };
-        await updateDoc(templateRef, templateData);
+        await setDoc(templateRef, templateData, { merge: true });
       } else {
         // 新規テンプレートの作成
         const templatesRef = collection(db, this.COLLECTIONS.EXERCISE_TEMPLATES);
@@ -338,7 +332,7 @@ export class FirestoreService {
         restTimerDefault: settings.restTimerDefault,
         weeklyGoal: settings.weeklyGoal,
       };
-      await updateDoc(settingsRef, settingsData);
+      await setDoc(settingsRef, settingsData, { merge: true });
     } catch (error) {
       console.error('Failed to save user settings:', error);
       throw new Error('ユーザー設定の保存に失敗しました');
