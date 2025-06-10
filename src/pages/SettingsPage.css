@@ -1,0 +1,2 @@
+/* 共通CSSをWorkoutPage.cssから継承 */
+@import './WorkoutPage.css';
