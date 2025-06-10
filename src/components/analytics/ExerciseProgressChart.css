@@ -1,0 +1,199 @@
+.exercise-progress-chart {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.chart-header {
+  margin-bottom: 20px;
+}
+
+.chart-header h3 {
+  margin: 0 0 16px 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.chart-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.stat-value.positive {
+  color: #059669;
+}
+
+.stat-value.negative {
+  color: #dc2626;
+}
+
+.chart-container {
+  margin: 20px 0;
+  min-height: 300px;
+}
+
+.no-data {
+  text-align: center;
+  padding: 60px 20px;
+  color: #64748b;
+}
+
+.no-data p {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+}
+
+.no-data-hint {
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.chart-insights {
+  margin-top: 20px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.chart-insights h4 {
+  margin: 0 0 12px 0;
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.insight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.insight.positive {
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.insight.negative {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.insight.neutral {
+  background: #dbeafe;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+}
+
+.insight.warning {
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+.insight-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .exercise-progress-chart {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .chart-header h3 {
+    font-size: 1.125rem;
+    margin-bottom: 12px;
+  }
+
+  .chart-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-item {
+    padding: 10px;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .stat-value {
+    font-size: 1.1rem;
+  }
+
+  .chart-container {
+    margin: 16px 0;
+    min-height: 250px;
+  }
+
+  .chart-insights {
+    padding: 12px;
+  }
+
+  .chart-insights h4 {
+    font-size: 0.9rem;
+  }
+
+  .insight {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* 小さな画面での統計表示を横スクロール可能に */
+@media (max-width: 480px) {
+  .chart-stats {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 8px;
+  }
+
+  .stat-item {
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+}
