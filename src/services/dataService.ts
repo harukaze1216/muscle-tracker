@@ -2,8 +2,8 @@
 // FirestoreとローカルストレージのHybridサポート
 
 import { WorkoutSession, ExerciseTemplate, UserSettings } from '../types/workout';
-import { FirestoreService } from './firestoreService';
-import { StorageService } from './storageService';
+import FirestoreService from './firestoreService';
+import StorageService from './storageService';
 
 // データソースの選択
 type DataSource = 'firestore' | 'localStorage' | 'hybrid';
@@ -547,3 +547,5 @@ export class DataService {
     });
   }
 }
+
+export default DataService;

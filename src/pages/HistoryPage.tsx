@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { WorkoutSession } from '../types/workout';
-import { DataService } from '../services/dataService';
+import DataService from '../services/dataService';
 import Calendar from '../components/history/Calendar';
 import WorkoutSessionCard from '../components/history/WorkoutSessionCard';
 import { getTodayString, formatDate, sortByDate } from '../utils/helpers';

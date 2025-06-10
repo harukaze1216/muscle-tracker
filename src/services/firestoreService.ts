@@ -389,3 +389,5 @@ export class FirestoreService {
     }
   }
 }
+
+export default FirestoreService;

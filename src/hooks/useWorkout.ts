@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { WorkoutSession, Exercise, WorkoutSet, ExerciseTemplate } from '../types/workout';
-import { DataService } from '../services/dataService';
+import DataService from '../services/dataService';
 import { generateId, getTodayString } from '../utils/helpers';
 
 interface UseWorkoutReturn {

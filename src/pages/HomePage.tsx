@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AnalyticsService } from '../services/analyticsService';
-import { DataService } from '../services/dataService';
+import AnalyticsService from '../services/analyticsService';
+import DataService from '../services/dataService';
 import { ExerciseSuggestion, WorkoutSession } from '../types/workout';
 import { formatDate, getTodayString } from '../utils/helpers';
 import './HomePage.css';

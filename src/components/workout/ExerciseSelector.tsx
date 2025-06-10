@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ExerciseTemplate } from '../../types/workout';
-import { DataService } from '../../services/dataService';
+import DataService from '../../services/dataService';
 import { getCategoryColor } from '../../utils/helpers';
 import './ExerciseSelector.css';
 

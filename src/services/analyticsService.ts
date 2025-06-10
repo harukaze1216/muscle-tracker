@@ -315,3 +315,5 @@ export class AnalyticsService {
     return streak;
   }
 }
+
+export default AnalyticsService;
