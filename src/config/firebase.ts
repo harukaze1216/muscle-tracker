@@ -1,17 +1,19 @@
 // Firebase設定とFirestore初期化
 
 import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 
-// Firebase設定（実際の値は環境変数で管理）
+// Firebase設定
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "demo-api-key",
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "muscle-tracker-demo.firebaseapp.com",
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || "muscle-tracker-demo",
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "muscle-tracker-demo.appspot.com",
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "123456789012",
-  appId: process.env.REACT_APP_FIREBASE_APP_ID || "1:123456789012:web:abcdef123456"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyDlZ7D_e0Lk2av9CKXKYnj2iHrO_ezSIMw",
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "mustle-app.firebaseapp.com",
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || "mustle-app",
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "mustle-app.firebasestorage.app",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "524642855338",
+  appId: process.env.REACT_APP_FIREBASE_APP_ID || "1:524642855338:web:87d000be2793f7877d23d3",
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || "G-FQP8M37FD9"
 };
 
 // Firebase初期化
@@ -22,6 +24,11 @@ export const db = getFirestore(app);
 
 // Auth初期化
 export const auth = getAuth(app);
+
+// Analytics初期化（本番環境のみ）
+export const analytics = typeof window !== 'undefined' && process.env.NODE_ENV === 'production' 
+  ? getAnalytics(app) 
+  : null;
 
 // 開発環境でのエミュレーター接続（オプション）
 if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_USE_EMULATOR === 'true') {
