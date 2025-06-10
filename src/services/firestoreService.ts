@@ -66,12 +66,14 @@ export class FirestoreService {
   static async updateWorkoutSession(session: WorkoutSession): Promise<void> {
     try {
       const docRef = doc(db, this.COLLECTIONS.WORKOUT_SESSIONS, session.id);
-      const sessionData: Partial<FirestoreWorkoutSession> = {
-        ...session,
+      const sessionData = {
+        date: session.date,
+        exercises: session.exercises,
+        notes: session.notes,
+        duration: session.duration,
         createdAt: Timestamp.fromDate(session.createdAt),
         updatedAt: Timestamp.fromDate(new Date()),
       };
-      delete sessionData.id; // IDは更新しない
       
       await updateDoc(docRef, sessionData);
     } catch (error) {
@@ -106,8 +108,11 @@ export class FirestoreService {
 
   static async saveWorkoutSession(session: WorkoutSession): Promise<void> {
     try {
-      const sessionData: Omit<FirestoreWorkoutSession, 'id'> = {
-        ...session,
+      const sessionData = {
+        date: session.date,
+        exercises: session.exercises,
+        notes: session.notes,
+        duration: session.duration,
         createdAt: Timestamp.fromDate(session.createdAt),
         updatedAt: Timestamp.fromDate(new Date()),
       };
@@ -229,11 +234,27 @@ export class FirestoreService {
       if (template.id && template.id.length > 0) {
         // 既存テンプレートの更新
         const templateRef = doc(db, this.COLLECTIONS.EXERCISE_TEMPLATES, template.id);
-        await updateDoc(templateRef, template);
+        const templateData = {
+          name: template.name,
+          category: template.category,
+          description: template.description,
+          muscleGroups: template.muscleGroups,
+          equipment: template.equipment,
+          instructions: template.instructions,
+        };
+        await updateDoc(templateRef, templateData);
       } else {
         // 新規テンプレートの作成
         const templatesRef = collection(db, this.COLLECTIONS.EXERCISE_TEMPLATES);
-        const docRef = await addDoc(templatesRef, template);
+        const templateData = {
+          name: template.name,
+          category: template.category,
+          description: template.description,
+          muscleGroups: template.muscleGroups,
+          equipment: template.equipment,
+          instructions: template.instructions,
+        };
+        const docRef = await addDoc(templatesRef, templateData);
         template.id = docRef.id;
       }
     } catch (error) {
@@ -313,7 +334,12 @@ export class FirestoreService {
   static async saveUserSettings(settings: UserSettings): Promise<void> {
     try {
       const settingsRef = doc(db, this.COLLECTIONS.USER_SETTINGS, 'default');
-      await updateDoc(settingsRef, settings);
+      const settingsData = {
+        preferredUnits: settings.preferredUnits,
+        restTimerDefault: settings.restTimerDefault,
+        weeklyGoal: settings.weeklyGoal,
+      };
+      await updateDoc(settingsRef, settingsData);
     } catch (error) {
       console.error('Failed to save user settings:', error);
       throw new Error('ユーザー設定の保存に失敗しました');
