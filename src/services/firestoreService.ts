@@ -249,10 +249,10 @@ export class FirestoreService {
         const templateData = {
           name: template.name,
           category: template.category,
-          description: template.description,
-          muscleGroups: template.muscleGroups,
+          targetMuscles: template.targetMuscles,
           equipment: template.equipment,
-          instructions: template.instructions,
+          difficulty: template.difficulty,
+          description: template.description,
         };
         const docRef = await addDoc(templatesRef, templateData);
         template.id = docRef.id;
