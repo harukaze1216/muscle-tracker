@@ -1,7 +1,7 @@
 // 統計分析とAI提案機能
 
 import { WorkoutSession, Exercise, ExerciseStats, ExerciseSuggestion, ExerciseTemplate } from '../types/workout';
-import { DataService } from './dataService';
+import DataService from './dataService';
 
 export class AnalyticsService {
   // データキャッシュ
@@ -154,7 +154,7 @@ export class AnalyticsService {
     });
     
     // 2. 今日すでにトレーニングしている場合は、バランスを考慮
-    const todaysSessions = StorageService.getWorkoutSessionsByDateRange(today, today);
+    const todaysSessions = this.cachedSessions.filter(session => session.date === today);
     if (todaysSessions.length > 0) {
       const todaysCategories = new Set(
         todaysSessions.flatMap(session => 
