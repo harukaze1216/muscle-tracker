@@ -1,0 +1,395 @@
+.workout-session-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.workout-session-card:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.session-info {
+  flex: 1;
+}
+
+.session-date {
+  color: #1f2937;
+  font-size: 1.1rem;
+  margin: 0 0 0.375rem 0;
+  font-weight: 600;
+}
+
+.session-stats {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.session-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.edit-btn,
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease;
+}
+
+.edit-btn:hover {
+  background-color: #f3f4f6;
+}
+
+.delete-btn:hover {
+  background-color: #fee2e2;
+}
+
+.session-categories {
+  display: flex;
+  gap: 0.375rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.category-tag {
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.session-summary {
+  margin-bottom: 0.75rem;
+}
+
+.exercise-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.375rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.exercise-summary:last-child {
+  border-bottom: none;
+}
+
+.exercise-summary .exercise-name {
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.exercise-sets {
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+.more-exercises {
+  color: #6b7280;
+  font-size: 0.8rem;
+  font-style: italic;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.session-details {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 1rem;
+  margin-top: 0.75rem;
+}
+
+.exercises-list {
+  margin-bottom: 1rem;
+}
+
+.exercise-details {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.exercise-details:last-child {
+  margin-bottom: 0;
+}
+
+.exercise-details .exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.exercise-details .exercise-name {
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.exercise-stats {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.exercise-stat {
+  background: white;
+  color: #6b7280;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.sets-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.375rem;
+}
+
+.set-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: white;
+  padding: 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.set-number {
+  background: #e5e7eb;
+  color: #374151;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.set-details {
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.session-notes {
+  background: #f0f9ff;
+  border: 1px solid #e0f2fe;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.session-notes h6 {
+  color: #0c4a6e;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 0.375rem 0;
+}
+
+.session-notes p {
+  color: #0f172a;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.session-timestamps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.timestamp {
+  color: #9ca3af;
+  font-size: 0.75rem;
+}
+
+.delete-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.delete-confirm {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.delete-confirm h5 {
+  color: #1f2937;
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.delete-confirm p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.cancel-btn {
+  background: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: #f9fafb;
+}
+
+.confirm-delete-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirm-delete-btn:hover {
+  background: #b91c1c;
+}
+
+/* モバイル対応 */
+@media (max-width: 640px) {
+  .workout-session-card {
+    padding: 0.75rem;
+  }
+  
+  .session-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  
+  .session-actions {
+    align-self: flex-end;
+  }
+  
+  .session-stats {
+    gap: 0.5rem;
+  }
+  
+  .stat-item {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+  }
+  
+  .exercise-details .exercise-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+  }
+  
+  .exercise-stats {
+    gap: 0.375rem;
+  }
+  
+  .sets-summary {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.25rem;
+  }
+  
+  .set-summary {
+    padding: 0.25rem;
+    font-size: 0.75rem;
+  }
+  
+  .set-number {
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.6rem;
+  }
+  
+  .session-timestamps {
+    gap: 0.125rem;
+  }
+  
+  .timestamp {
+    font-size: 0.7rem;
+  }
+}
