@@ -106,10 +106,10 @@ const ExerciseProgressChart: React.FC<ExerciseProgressChartProps> = ({
   // 統計情報の計算
   const stats = {
     totalSessions: data.length,
-    currentMax: data[data.length - 1]?.maxWeight || 0,
-    allTimeMax: Math.max(...data.map(d => d.maxWeight)),
+    currentMax: data.length > 0 ? data[data.length - 1].maxWeight : 0,
+    allTimeMax: data.length > 0 ? Math.max(...data.map(d => d.maxWeight)) : 0,
     improvement: data.length > 1 
-      ? Math.round(((data[data.length - 1]?.maxWeight || 0) - (data[0]?.maxWeight || 0)) * 10) / 10
+      ? Math.round((data[data.length - 1].maxWeight - data[0].maxWeight) * 10) / 10
       : 0,
     totalVolume: data.reduce((sum, d) => sum + d.totalVolume, 0),
   };
@@ -222,7 +222,6 @@ const ExerciseProgressChart: React.FC<ExerciseProgressChartProps> = ({
                 dot={{ fill: '#16a34a', strokeWidth: 2, r: 3 }}
                 activeDot={{ r: 5, stroke: '#16a34a', strokeWidth: 2 }}
                 name="総挙上量"
-                yAxisId="volume"
               />
             )}
 

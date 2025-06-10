@@ -192,15 +192,18 @@ const SetInput: React.FC<SetInputProps> = ({
           </div>
 
           <div className="form-actions">
-            {getLastSetData() && (
-              <button
-                onClick={useLastSetData}
-                className="use-last-btn"
-                type="button"
-              >
-                前回と同じ ({formatWeight(getLastSetData()!.weight)} × {getLastSetData()!.reps}回)
-              </button>
-            )}
+            {(() => {
+              const lastSet = getLastSetData();
+              return lastSet && (
+                <button
+                  onClick={useLastSetData}
+                  className="use-last-btn"
+                  type="button"
+                >
+                  前回と同じ ({formatWeight(lastSet.weight)} × {lastSet.reps}回)
+                </button>
+              );
+            })()}
             
             <button
               onClick={handleAddSet}

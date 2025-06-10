@@ -65,7 +65,7 @@ const WorkoutPage: React.FC = () => {
     }
   };
 
-  const calculateSessionStats = () => {
+  const calculateSessionStats = (): { totalVolume: number; totalSets: number; exerciseCount: number } => {
     if (!currentSession) return { totalVolume: 0, totalSets: 0, exerciseCount: 0 };
     
     const totalVolume = currentSession.exercises.reduce((total, exercise) => 

@@ -35,28 +35,28 @@ export const useWorkout = (): UseWorkoutReturn => {
   }, []);
 
   const endWorkout = useCallback(() => {
+    setCurrentSession(null);
     setIsWorkoutActive(false);
   }, []);
 
   const addExercise = useCallback((template: ExerciseTemplate) => {
-    if (!currentSession) return;
-
-    const newExercise: Exercise = {
-      id: generateId(),
-      name: template.name,
-      category: template.category,
-      sets: [],
-    };
-
     setCurrentSession(prev => {
       if (!prev) return null;
+
+      const newExercise: Exercise = {
+        id: generateId(),
+        name: template.name,
+        category: template.category,
+        sets: [],
+      };
+
       return {
         ...prev,
         exercises: [...prev.exercises, newExercise],
         updatedAt: new Date(),
       };
     });
-  }, [currentSession]);
+  }, []);
 
   const removeExercise = useCallback((exerciseId: string) => {
     setCurrentSession(prev => {
