@@ -225,6 +225,25 @@ export class StorageService {
       throw new Error('データの削除に失敗しました');
     }
   }
+
+  // ストレージ使用状況を取得
+  static getStorageInfo(): { used: number; total: number } {
+    try {
+      let used = 0;
+      for (const key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+          used += localStorage[key].length + key.length;
+        }
+      }
+      
+      // ローカルストレージの一般的な制限は5MB
+      const total = 5 * 1024 * 1024; // 5MB in bytes
+      return { used, total };
+    } catch (error) {
+      console.error('Failed to get storage info:', error);
+      return { used: 0, total: 0 };
+    }
+  }
 }
 
 export default StorageService;
