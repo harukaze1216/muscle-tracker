@@ -70,6 +70,16 @@ export class StorageService {
     }
   }
 
+  // 複数のワークアウトセッションを一括保存
+  static saveWorkoutSessions(sessions: WorkoutSession[]): void {
+    try {
+      localStorage.setItem(STORAGE_KEYS.WORKOUT_SESSIONS, JSON.stringify(sessions));
+    } catch (error) {
+      console.error('Failed to save workout sessions:', error);
+      throw new Error('ワークアウトセッションの保存に失敗しました');
+    }
+  }
+
   static deleteWorkoutSession(sessionId: string): void {
     try {
       const sessions = this.getWorkoutSessions();
