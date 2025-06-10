@@ -68,8 +68,8 @@ export class FirestoreService {
       const sessionData = {
         date: session.date,
         exercises: session.exercises,
-        notes: session.notes,
-        duration: session.duration,
+        notes: session.notes ?? null,
+        duration: session.duration ?? null,
         createdAt: Timestamp.fromDate(session.createdAt),
         updatedAt: Timestamp.fromDate(new Date()),
       };
@@ -110,8 +110,8 @@ export class FirestoreService {
       const sessionData = {
         date: session.date,
         exercises: session.exercises,
-        notes: session.notes,
-        duration: session.duration,
+        notes: session.notes ?? null,
+        duration: session.duration ?? null,
         createdAt: Timestamp.fromDate(session.createdAt),
         updatedAt: Timestamp.fromDate(new Date()),
       };

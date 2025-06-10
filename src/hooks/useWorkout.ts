@@ -27,6 +27,7 @@ export const useWorkout = (): UseWorkoutReturn => {
       date: getTodayString(),
       exercises: [],
       notes: '',
+      duration: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
