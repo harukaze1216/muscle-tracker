@@ -34,6 +34,51 @@ export class FirestoreService {
 
   // ========== ワークアウトセッション関連 ==========
 
+  // 全てのワークアウトセッションを取得（エイリアス）
+  static async getAllWorkoutSessions(): Promise<WorkoutSession[]> {
+    return this.getWorkoutSessions();
+  }
+
+  // 単一のワークアウトセッションを取得
+  static async getWorkoutSession(sessionId: string): Promise<WorkoutSession | null> {
+    try {
+      const docRef = doc(db, this.COLLECTIONS.WORKOUT_SESSIONS, sessionId);
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        const data = docSnap.data() as FirestoreWorkoutSession;
+        return {
+          ...data,
+          id: docSnap.id,
+          createdAt: data.createdAt.toDate(),
+          updatedAt: data.updatedAt.toDate(),
+        };
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Failed to load workout session:', error);
+      throw new Error('ワークアウトセッションの読み込みに失敗しました');
+    }
+  }
+
+  // ワークアウトセッションを更新
+  static async updateWorkoutSession(session: WorkoutSession): Promise<void> {
+    try {
+      const docRef = doc(db, this.COLLECTIONS.WORKOUT_SESSIONS, session.id);
+      const sessionData: Partial<FirestoreWorkoutSession> = {
+        ...session,
+        updatedAt: Timestamp.fromDate(new Date()),
+      };
+      delete sessionData.id; // IDは更新しない
+      
+      await updateDoc(docRef, sessionData);
+    } catch (error) {
+      console.error('Failed to update workout session:', error);
+      throw new Error('ワークアウトセッションの更新に失敗しました');
+    }
+  }
+
   static async getWorkoutSessions(): Promise<WorkoutSession[]> {
     try {
       const sessionsRef = collection(db, this.COLLECTIONS.WORKOUT_SESSIONS);

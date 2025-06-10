@@ -10,6 +10,30 @@ const STORAGE_KEYS = {
 
 export class StorageService {
   // ワークアウトセッション関連
+  // 全てのワークアウトセッションを取得（エイリアス）
+  static getAllWorkoutSessions(): WorkoutSession[] {
+    return this.getWorkoutSessions();
+  }
+
+  // 単一のワークアウトセッションを取得
+  static getWorkoutSession(sessionId: string): WorkoutSession | null {
+    const sessions = this.getWorkoutSessions();
+    return sessions.find(session => session.id === sessionId) || null;
+  }
+
+  // セッションを更新
+  static updateWorkoutSession(session: WorkoutSession): void {
+    const sessions = this.getWorkoutSessions();
+    const index = sessions.findIndex(s => s.id === session.id);
+    if (index !== -1) {
+      sessions[index] = session;
+      this.saveWorkoutSessions(sessions);
+    } else {
+      // セッションが存在しない場合は新規作成
+      this.saveWorkoutSession(session);
+    }
+  }
+
   static getWorkoutSessions(): WorkoutSession[] {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.WORKOUT_SESSIONS);

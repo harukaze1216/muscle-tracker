@@ -45,41 +45,6 @@ export class DataService {
 
   // ========== ワークアウトセッション関連 ==========
 
-  static async getWorkoutSessions(): Promise<WorkoutSession[]> {
-    try {
-      switch (this.config.dataSource) {
-        case 'firestore':
-          return await FirestoreService.getWorkoutSessions();
-        
-        case 'localStorage':
-          return StorageService.getWorkoutSessions();
-        
-        case 'hybrid':
-        default:
-          // オンライン時はFirestore、オフライン時はローカルストレージ
-          if (navigator.onLine && await this.isFirestoreAvailable()) {
-            try {
-              const firestoreSessions = await FirestoreService.getWorkoutSessions();
-              // Firestoreから取得できたらローカルにも保存（キャッシュ）
-              this.syncToLocal('sessions', firestoreSessions);
-              return firestoreSessions;
-            } catch (error) {
-              console.warn('Firestoreからの取得に失敗、ローカルストレージにフォールバック:', error);
-              return StorageService.getWorkoutSessions();
-            }
-          } else {
-            return StorageService.getWorkoutSessions();
-          }
-      }
-    } catch (error) {
-      console.error('セッション取得エラー:', error);
-      // フォールバック
-      if (this.config.fallbackToLocal) {
-        return StorageService.getWorkoutSessions();
-      }
-      throw error;
-    }
-  }
 
   static async saveWorkoutSession(session: WorkoutSession): Promise<void> {
     try {
@@ -575,6 +540,35 @@ export class DataService {
       } else {
         throw error;
       }
+    }
+  }
+
+  // ストレージ情報を取得
+  static getStorageInfo(): { used: number; total: number; source: string } {
+    try {
+      switch (this.config.dataSource) {
+        case 'firestore':
+          return {
+            used: 0, // Firestoreは制限が複雑なため0とする
+            total: 1024 * 1024 * 1024, // 1GB（概算）
+            source: 'Firestore'
+          };
+        
+        case 'localStorage':
+        case 'hybrid':
+        default:
+          return {
+            ...StorageService.getStorageInfo(),
+            source: this.config.dataSource === 'hybrid' ? 'Hybrid (LocalStorage + Firestore)' : 'LocalStorage'
+          };
+      }
+    } catch (error) {
+      console.error('ストレージ情報取得エラー:', error);
+      return {
+        used: 0,
+        total: 0,
+        source: 'Unknown'
+      };
     }
   }
 
