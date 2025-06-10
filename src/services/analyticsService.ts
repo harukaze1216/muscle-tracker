@@ -1,6 +1,6 @@
 // 統計分析とAI提案機能
 
-import { WorkoutSession, Exercise, ExerciseStats, ExerciseSuggestion, ExerciseTemplate } from '../types/workout';
+import { WorkoutSession, ExerciseStats, ExerciseSuggestion, ExerciseTemplate } from '../types/workout';
 import DataService from './dataService';
 
 export class AnalyticsService {

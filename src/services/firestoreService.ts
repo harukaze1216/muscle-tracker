@@ -11,7 +11,6 @@ import {
   query,
   where,
   orderBy,
-  limit,
   Timestamp,
   writeBatch,
 } from 'firebase/firestore';

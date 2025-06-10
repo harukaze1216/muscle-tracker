@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { WorkoutSession } from '../../types/workout';
-import { formatDateShort, getTodayString } from '../../utils/helpers';
+import { getTodayString } from '../../utils/helpers';
 import './Calendar.css';
 
 interface CalendarProps {
