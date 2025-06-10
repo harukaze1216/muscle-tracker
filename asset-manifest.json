@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/muscle-tracker/static/css/main.c8a7f2cd.css",
+    "main.js": "/muscle-tracker/static/js/main.47729629.js",
+    "static/js/453.f7c3fe9b.chunk.js": "/muscle-tracker/static/js/453.f7c3fe9b.chunk.js",
+    "index.html": "/muscle-tracker/index.html",
+    "main.c8a7f2cd.css.map": "/muscle-tracker/static/css/main.c8a7f2cd.css.map",
+    "main.47729629.js.map": "/muscle-tracker/static/js/main.47729629.js.map",
+    "453.f7c3fe9b.chunk.js.map": "/muscle-tracker/static/js/453.f7c3fe9b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c8a7f2cd.css",
+    "static/js/main.47729629.js"
+  ]
+}
