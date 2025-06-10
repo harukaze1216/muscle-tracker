@@ -237,10 +237,10 @@ export class FirestoreService {
         const templateData = {
           name: template.name,
           category: template.category,
-          description: template.description,
-          muscleGroups: template.muscleGroups,
+          targetMuscles: template.targetMuscles,
           equipment: template.equipment,
-          instructions: template.instructions,
+          difficulty: template.difficulty,
+          description: template.description,
         };
         await updateDoc(templateRef, templateData);
       } else {
