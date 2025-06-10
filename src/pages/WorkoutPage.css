@@ -1,4 +1,13 @@
-.workout-page,
+.workout-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 共通ページスタイル（他のページ用） */
 .history-page,
 .analytics-page,
 .settings-page {
@@ -25,6 +34,283 @@
   margin: 0;
 }
 
+/* ワークアウト開始画面 */
+.start-workout-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-workout-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.start-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.start-workout-card h3 {
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.start-workout-card p {
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+.start-workout-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.start-workout-button:hover {
+  transform: translateY(-2px);
+}
+
+/* ワークアウト中の画面 */
+.workout-header {
+  margin-bottom: 1.5rem;
+}
+
+.workout-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.workout-title h2 {
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+  font-size: 1.5rem;
+}
+
+.workout-title p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.workout-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.stat-item {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.workout-content {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.empty-workout {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.empty-workout h3 {
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.empty-workout p {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.exercises-list {
+  margin-bottom: 1rem;
+}
+
+.exercise-container {
+  margin-bottom: 1rem;
+}
+
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.exercise-header h4 {
+  color: #1f2937;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.remove-exercise-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+
+.remove-exercise-btn:hover {
+  background-color: #fee2e2;
+}
+
+.workout-notes {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.workout-notes label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.workout-notes textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 4rem;
+  font-family: inherit;
+}
+
+.workout-notes textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.workout-actions {
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  padding: 1rem;
+  margin: 0 -1rem -1rem -1rem;
+  position: sticky;
+  bottom: 0;
+}
+
+.add-exercise-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.add-exercise-btn:hover {
+  transform: translateY(-1px);
+}
+
+.workout-controls {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.75rem;
+}
+
+.discard-btn {
+  background: white;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.discard-btn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.save-workout-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.save-workout-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.save-workout-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 他のページ用のcoming-soonスタイル */
 .coming-soon {
   text-align: center;
   background: white;
@@ -71,4 +357,51 @@
   left: 0;
   color: #10b981;
   font-weight: bold;
+}
+
+/* モバイル対応 */
+@media (max-width: 640px) {
+  .workout-page {
+    padding: 0 0.75rem;
+  }
+  
+  .start-workout-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .start-icon {
+    font-size: 3rem;
+  }
+  
+  .workout-stats {
+    gap: 0.5rem;
+  }
+  
+  .stat-item {
+    padding: 0.5rem;
+  }
+  
+  .stat-value {
+    font-size: 1rem;
+  }
+  
+  .stat-label {
+    font-size: 0.7rem;
+  }
+  
+  .workout-actions {
+    padding: 0.75rem;
+    margin: 0 -0.75rem -0.75rem -0.75rem;
+  }
+  
+  .workout-controls {
+    gap: 0.5rem;
+  }
+  
+  .add-exercise-btn,
+  .discard-btn,
+  .save-workout-btn {
+    padding: 0.625rem;
+    font-size: 0.9rem;
+  }
 }
