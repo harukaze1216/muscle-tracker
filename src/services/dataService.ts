@@ -121,6 +121,111 @@ export class DataService {
     }
   }
 
+  // 単一のワークアウトセッションを取得
+  static async getWorkoutSession(sessionId: string): Promise<WorkoutSession | null> {
+    try {
+      switch (this.config.dataSource) {
+        case 'firestore':
+          return await FirestoreService.getWorkoutSession(sessionId);
+        
+        case 'localStorage':
+          return StorageService.getWorkoutSession(sessionId);
+        
+        case 'hybrid':
+        default:
+          if (navigator.onLine && await this.isFirestoreAvailable()) {
+            try {
+              return await FirestoreService.getWorkoutSession(sessionId);
+            } catch (error) {
+              console.warn('Firestoreクエリに失敗、ローカルストレージにフォールバック:', error);
+              return StorageService.getWorkoutSession(sessionId);
+            }
+          } else {
+            return StorageService.getWorkoutSession(sessionId);
+          }
+      }
+    } catch (error) {
+      console.error('セッション取得エラー:', error);
+      
+      if (this.config.fallbackToLocal) {
+        return StorageService.getWorkoutSession(sessionId);
+      }
+      throw error;
+    }
+  }
+
+  // 全てのワークアウトセッションを取得
+  static async getAllWorkoutSessions(): Promise<WorkoutSession[]> {
+    try {
+      switch (this.config.dataSource) {
+        case 'firestore':
+          return await FirestoreService.getAllWorkoutSessions();
+        
+        case 'localStorage':
+          return StorageService.getAllWorkoutSessions();
+        
+        case 'hybrid':
+        default:
+          if (navigator.onLine && await this.isFirestoreAvailable()) {
+            try {
+              return await FirestoreService.getAllWorkoutSessions();
+            } catch (error) {
+              console.warn('Firestoreクエリに失敗、ローカルストレージにフォールバック:', error);
+              return StorageService.getAllWorkoutSessions();
+            }
+          } else {
+            return StorageService.getAllWorkoutSessions();
+          }
+      }
+    } catch (error) {
+      console.error('全セッション取得エラー:', error);
+      
+      if (this.config.fallbackToLocal) {
+        return StorageService.getAllWorkoutSessions();
+      }
+      throw error;
+    }
+  }
+
+  // セッションを更新
+  static async updateWorkoutSession(session: WorkoutSession): Promise<void> {
+    try {
+      switch (this.config.dataSource) {
+        case 'firestore':
+          await FirestoreService.updateWorkoutSession(session);
+          break;
+        
+        case 'localStorage':
+          StorageService.updateWorkoutSession(session);
+          break;
+        
+        case 'hybrid':
+        default:
+          // ローカルストレージに即座に保存
+          StorageService.updateWorkoutSession(session);
+          
+          // オンライン時はFirestoreにも保存を試行
+          if (navigator.onLine && this.config.syncToFirestore) {
+            try {
+              await FirestoreService.updateWorkoutSession(session);
+            } catch (error) {
+              console.warn('Firestoreへの同期に失敗:', error);
+              this.queueForSync('updateSession', session);
+            }
+          }
+          break;
+      }
+    } catch (error) {
+      console.error('セッション更新エラー:', error);
+      
+      if (this.config.fallbackToLocal) {
+        StorageService.updateWorkoutSession(session);
+      } else {
+        throw error;
+      }
+    }
+  }
+
   static async deleteWorkoutSession(sessionId: string): Promise<void> {
     try {
       switch (this.config.dataSource) {
