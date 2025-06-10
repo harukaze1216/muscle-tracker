@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ExerciseTemplate } from '../../types/workout';
-import { StorageService } from '../../services/storageService';
+import { DataService } from '../../services/dataService';
 import { getCategoryColor } from '../../utils/helpers';
 import './ExerciseSelector.css';
 
@@ -16,10 +16,14 @@ const ExerciseSelector: React.FC<ExerciseSelectorProps> = ({ onSelectExercise, o
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
-    const loadTemplates = () => {
-      const exerciseTemplates = StorageService.getExerciseTemplates();
-      setTemplates(exerciseTemplates);
-      setFilteredTemplates(exerciseTemplates);
+    const loadTemplates = async () => {
+      try {
+        const exerciseTemplates = await DataService.getExerciseTemplates();
+        setTemplates(exerciseTemplates);
+        setFilteredTemplates(exerciseTemplates);
+      } catch (error) {
+        console.error('種目テンプレートの読み込みに失敗しました:', error);
+      }
     };
     loadTemplates();
   }, []);

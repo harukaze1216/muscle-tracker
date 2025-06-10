@@ -1,12 +1,50 @@
 // 統計分析とAI提案機能
 
 import { WorkoutSession, Exercise, ExerciseStats, ExerciseSuggestion, ExerciseTemplate } from '../types/workout';
-import { StorageService } from './storageService';
+import { DataService } from './dataService';
 
 export class AnalyticsService {
+  // データキャッシュ
+  private static cachedSessions: WorkoutSession[] = [];
+  private static cachedTemplates: ExerciseTemplate[] = [];
+  private static lastCacheUpdate: number = 0;
+  private static readonly CACHE_DURATION = 5 * 60 * 1000; // 5分
+
+  // キャッシュされたセッションを取得
+  static getCachedSessions(): WorkoutSession[] {
+    // キャッシュが古い場合は空の配列を返す（外部で更新が必要）
+    if (Date.now() - this.lastCacheUpdate > this.CACHE_DURATION) {
+      return [];
+    }
+    return this.cachedSessions;
+  }
+
+  // キャッシュの更新
+  static async updateCache(): Promise<void> {
+    try {
+      const [sessions, templates] = await Promise.all([
+        DataService.getWorkoutSessions(),
+        DataService.getExerciseTemplates(),
+      ]);
+      
+      this.cachedSessions = sessions;
+      this.cachedTemplates = templates;
+      this.lastCacheUpdate = Date.now();
+    } catch (error) {
+      console.error('キャッシュ更新エラー:', error);
+    }
+  }
+
+  // キャッシュされたテンプレートを取得
+  static getCachedTemplates(): ExerciseTemplate[] {
+    return this.cachedTemplates;
+  }
   // 種目別統計情報の取得
   static getExerciseStats(exerciseName: string): ExerciseStats | null {
-    const sessions = StorageService.getWorkoutSessionsByExercise(exerciseName);
+    // キャッシュされたデータを使用（非同期処理を避けるため）
+    const sessions = this.getCachedSessions().filter(session =>
+      session.exercises.some(ex => ex.name === exerciseName)
+    );
     if (sessions.length === 0) return null;
 
     const allSets = sessions.flatMap(session =>
@@ -38,7 +76,7 @@ export class AnalyticsService {
     }
 
     // カテゴリを推定（テンプレートから取得）
-    const templates = StorageService.getExerciseTemplates();
+    const templates = this.getCachedTemplates();
     const template = templates.find(t => t.name === exerciseName);
     const category = template?.category || '不明';
 
@@ -67,7 +105,7 @@ export class AnalyticsService {
   static suggestTodaysExercises(): ExerciseSuggestion[] {
     const today = new Date().toISOString().split('T')[0];
     const pastWeekSessions = this.getSessionsInLastDays(7);
-    const templates = StorageService.getExerciseTemplates();
+    const templates = this.getCachedTemplates();
     
     // 過去1週間の部位別トレーニング頻度を分析
     const categoryFrequency = this.analyzeCategoryFrequency(pastWeekSessions);
@@ -164,11 +202,16 @@ export class AnalyticsService {
   private static getSessionsInLastDays(days: number): WorkoutSession[] {
     const endDate = new Date().toISOString().split('T')[0];
     const startDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-    return StorageService.getWorkoutSessionsByDateRange(startDate, endDate);
+    
+    // キャッシュされたセッションから期間内のものを取得
+    const sessions = this.getCachedSessions();
+    return sessions.filter(session => 
+      session.date >= startDate && session.date <= endDate
+    );
   }
 
   private static analyzeCategoryFrequency(sessions: WorkoutSession[]): Record<string, number> {
-    const templates = StorageService.getExerciseTemplates();
+    const templates = this.getCachedTemplates();
     const frequency: Record<string, number> = {};
     
     sessions.forEach(session => {
@@ -189,7 +232,7 @@ export class AnalyticsService {
   }
 
   private static getLastTrainedByCategory(sessions: WorkoutSession[]): Record<string, string> {
-    const templates = StorageService.getExerciseTemplates();
+    const templates = this.getCachedTemplates();
     const lastTrained: Record<string, string> = {};
     
     // 日付でソート（新しい順）
@@ -250,7 +293,7 @@ export class AnalyticsService {
   }
 
   private static calculateStreak(): number {
-    const allSessions = StorageService.getWorkoutSessions()
+    const allSessions = this.getCachedSessions()
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     
     let streak = 0;

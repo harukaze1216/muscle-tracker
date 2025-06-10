@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AnalyticsService } from '../services/analyticsService';
-import { StorageService } from '../services/storageService';
+import { DataService } from '../services/dataService';
 import { ExerciseSuggestion, WorkoutSession } from '../types/workout';
 import { formatDate, getTodayString } from '../utils/helpers';
 import './HomePage.css';
@@ -20,19 +20,26 @@ const HomePage: React.FC = () => {
     loadData();
   }, []);
 
-  const loadData = () => {
-    const today = getTodayString();
-    const todaySessions = StorageService.getWorkoutSessionsByDateRange(today, today);
-    
-    if (todaySessions.length > 0) {
-      setTodayWorkout(todaySessions[0]);
+  const loadData = async () => {
+    try {
+      // まずAnalyticsServiceのキャッシュを更新
+      await AnalyticsService.updateCache();
+
+      const today = getTodayString();
+      const todaySessions = await DataService.getWorkoutSessionsByDateRange(today, today);
+      
+      if (todaySessions.length > 0) {
+        setTodayWorkout(todaySessions[0]);
+      }
+
+      const exerciseSuggestions = AnalyticsService.suggestTodaysExercises();
+      setSuggestions(exerciseSuggestions.slice(0, 3)); // 上位3つを表示
+
+      const stats = AnalyticsService.getWeeklyStats();
+      setWeeklyStats(stats);
+    } catch (error) {
+      console.error('データの読み込みに失敗しました:', error);
     }
-
-    const exerciseSuggestions = AnalyticsService.suggestTodaysExercises();
-    setSuggestions(exerciseSuggestions.slice(0, 3)); // 上位3つを表示
-
-    const stats = AnalyticsService.getWeeklyStats();
-    setWeeklyStats(stats);
   };
 
   const getPriorityBadge = (priority: 'high' | 'medium' | 'low') => {

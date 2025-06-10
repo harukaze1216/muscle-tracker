@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { WorkoutSession } from '../types/workout';
-import { StorageService } from '../services/storageService';
+import { DataService } from '../services/dataService';
 import Calendar from '../components/history/Calendar';
 import WorkoutSessionCard from '../components/history/WorkoutSessionCard';
 import { getTodayString, formatDate, sortByDate } from '../utils/helpers';
@@ -20,10 +20,10 @@ const HistoryPage: React.FC = () => {
     loadSessions();
   }, []);
 
-  const loadSessions = () => {
+  const loadSessions = async () => {
     setIsLoading(true);
     try {
-      const allSessions = StorageService.getWorkoutSessions();
+      const allSessions = await DataService.getWorkoutSessions();
       setSessions(sortByDate(allSessions, true));
     } catch (error) {
       console.error('セッションの読み込みに失敗しました:', error);
@@ -60,9 +60,9 @@ const HistoryPage: React.FC = () => {
     });
   };
 
-  const handleDeleteSession = (sessionId: string) => {
+  const handleDeleteSession = async (sessionId: string) => {
     try {
-      StorageService.deleteWorkoutSession(sessionId);
+      await DataService.deleteWorkoutSession(sessionId);
       setSessions(prev => prev.filter(session => session.id !== sessionId));
       setExpandedSessions(prev => {
         const newSet = new Set(prev);

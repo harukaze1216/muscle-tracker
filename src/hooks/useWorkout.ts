@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { WorkoutSession, Exercise, WorkoutSet, ExerciseTemplate } from '../types/workout';
-import { StorageService } from '../services/storageService';
+import { DataService } from '../services/dataService';
 import { generateId, getTodayString } from '../utils/helpers';
 
 interface UseWorkoutReturn {
@@ -142,7 +142,7 @@ export const useWorkout = (): UseWorkoutReturn => {
     }
 
     try {
-      StorageService.saveWorkoutSession(currentSession);
+      await DataService.saveWorkoutSession(currentSession);
       setCurrentSession(null);
       setIsWorkoutActive(false);
     } catch (error) {

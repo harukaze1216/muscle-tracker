@@ -1,10 +1,61 @@
-# Getting Started with Create React App
+# 💪 Muscle Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+筋トレの記録と分析を行うWebアプリケーションです。AI提案機能により、効果的なトレーニングプランを提供します。
 
-## Available Scripts
+## ✨ 主な機能
 
-In the project directory, you can run:
+- **トレーニング記録**: 種目別のセット・レップ・重量を記録
+- **履歴表示**: カレンダー・リスト形式での記録閲覧
+- **AI提案**: 過去データに基づく最適な種目提案
+- **統計分析**: 進捗の可視化とパフォーマンス追跡
+- **オフライン対応**: インターネット接続不要で利用可能
+- **データ同期**: FirestoreまたはローカルストレージでのHybrid構成
+
+## 🚀 セットアップ
+
+### 1. インストール
+
+```bash
+npm install
+```
+
+### 2. 環境変数の設定
+
+`.env.example` をコピーして `.env` ファイルを作成し、Firebase設定を追加してください。
+
+```bash
+cp .env.example .env
+```
+
+### 3. Firebase設定（オプション）
+
+Firestoreを使用する場合は、以下の手順でFirebaseプロジェクトを設定してください：
+
+1. [Firebase Console](https://console.firebase.google.com/)でプロジェクトを作成
+2. Firestoreデータベースを有効化
+3. プロジェクト設定から設定値を取得
+4. `.env`ファイルに設定値を記載
+
+```env
+REACT_APP_FIREBASE_API_KEY=your-api-key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=123456789012
+REACT_APP_FIREBASE_APP_ID=1:123456789012:web:abcdef123456
+```
+
+### 4. データソースの選択
+
+`.env`ファイルで使用するデータソースを指定できます：
+
+- `REACT_APP_DATA_SOURCE=hybrid` (デフォルト): FirestoreとローカルストレージのHybrid
+- `REACT_APP_DATA_SOURCE=firestore`: Firestoreのみ
+- `REACT_APP_DATA_SOURCE=localStorage`: ローカルストレージのみ
+
+## 📱 利用方法
+
+### 開発サーバーの起動
 
 ### `npm start`
 
