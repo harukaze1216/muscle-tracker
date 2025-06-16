@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWorkout } from '../hooks/useWorkout';
 import { ExerciseTemplate } from '../types/workout';
 import ExerciseSelector from '../components/workout/ExerciseSelector';
 import SetInput from '../components/workout/SetInput';
+import RestTimer from '../components/workout/RestTimer';
+import DataService from '../services/dataService';
 import { formatDate, getTodayString, calculateVolume } from '../utils/helpers';
 import './WorkoutPage.css';
 
@@ -25,6 +27,19 @@ const WorkoutPage: React.FC = () => {
   
   const [showExerciseSelector, setShowExerciseSelector] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [restTimeDefault, setRestTimeDefault] = useState(90);
+
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const settings = await DataService.getUserSettings();
+        setRestTimeDefault(settings.restTimerDefault);
+      } catch (error) {
+        console.error('設定の読み込みに失敗しました:', error);
+      }
+    };
+    loadSettings();
+  }, []);
 
   const handleStartWorkout = () => {
     startWorkout();
@@ -177,6 +192,8 @@ const WorkoutPage: React.FC = () => {
             rows={3}
           />
         </div>
+
+        <RestTimer initialTime={restTimeDefault} />
       </div>
 
       <div className="workout-actions">
