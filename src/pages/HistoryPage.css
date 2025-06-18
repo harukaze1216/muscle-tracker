@@ -147,6 +147,17 @@
   font-weight: 600;
 }
 
+.yesterday-section {
+  margin-top: 1.5rem;
+}
+
+.yesterday-title {
+  color: #1f2937;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
 .no-sessions {
   text-align: center;
   padding: 3rem 2rem;
@@ -285,8 +296,12 @@
   .stat-label {
     font-size: 0.7rem;
   }
-  
+
   .selected-date-title {
+    font-size: 1rem;
+  }
+
+  .yesterday-title {
     font-size: 1rem;
   }
   

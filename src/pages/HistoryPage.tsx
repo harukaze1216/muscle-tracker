@@ -3,7 +3,7 @@ import { WorkoutSession } from '../types/workout';
 import DataService from '../services/dataService';
 import Calendar from '../components/history/Calendar';
 import WorkoutSessionCard from '../components/history/WorkoutSessionCard';
-import { getTodayString, formatDate, sortByDate } from '../utils/helpers';
+import { getTodayString, formatDate, sortByDate, getDaysAgo } from '../utils/helpers';
 import './HistoryPage.css';
 
 type ViewMode = 'calendar' | 'list';
@@ -13,6 +13,7 @@ const HistoryPage: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('calendar');
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<string>(getTodayString());
+  const [yesterdaySessions, setYesterdaySessions] = useState<WorkoutSession[]>([]);
   const [expandedSessions, setExpandedSessions] = useState<Set<string>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,6 +26,8 @@ const HistoryPage: React.FC = () => {
     try {
       const allSessions = await DataService.getAllWorkoutSessions();
       setSessions(sortByDate(allSessions, true));
+      const yesterday = getDaysAgo(1);
+      setYesterdaySessions(allSessions.filter(session => session.date === yesterday));
     } catch (error) {
       console.error('セッションの読み込みに失敗しました:', error);
     } finally {
@@ -180,6 +183,25 @@ const HistoryPage: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {yesterdaySessions.length > 0 && (
+            <div className="yesterday-section">
+              <h3 className="yesterday-title">
+                昨日({formatDate(getDaysAgo(1))})のワークアウト
+              </h3>
+              <div className="sessions-list">
+                {yesterdaySessions.map(session => (
+                  <WorkoutSessionCard
+                    key={session.id}
+                    session={session}
+                    isExpanded={expandedSessions.has(session.id)}
+                    onToggleExpand={handleToggleExpand}
+                    onDelete={handleDeleteSession}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
           {viewMode === 'calendar' && (
             <>
