@@ -1,9 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import DataService from './services/dataService';
 
-test('renders learn react link', () => {
+test('renders app header', () => {
+  DataService.configure({ dataSource: 'localStorage', syncToFirestore: false });
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const headerElement = screen.getByText('💪 Muscle Tracker');
+  expect(headerElement).toBeInTheDocument();
 });
