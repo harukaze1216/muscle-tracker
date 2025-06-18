@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/muscle-tracker/static/css/main.b782534f.css",
-    "main.js": "/muscle-tracker/static/js/main.bff1d6a0.js",
-    "static/js/453.f7c3fe9b.chunk.js": "/muscle-tracker/static/js/453.f7c3fe9b.chunk.js",
+    "main.css": "/muscle-tracker/static/css/main.114b434c.css",
+    "main.js": "/muscle-tracker/static/js/main.a89d4d54.js",
+    "static/js/453.9517329c.chunk.js": "/muscle-tracker/static/js/453.9517329c.chunk.js",
     "index.html": "/muscle-tracker/index.html",
-    "main.b782534f.css.map": "/muscle-tracker/static/css/main.b782534f.css.map",
-    "main.bff1d6a0.js.map": "/muscle-tracker/static/js/main.bff1d6a0.js.map",
-    "453.f7c3fe9b.chunk.js.map": "/muscle-tracker/static/js/453.f7c3fe9b.chunk.js.map"
+    "main.114b434c.css.map": "/muscle-tracker/static/css/main.114b434c.css.map",
+    "main.a89d4d54.js.map": "/muscle-tracker/static/js/main.a89d4d54.js.map",
+    "453.9517329c.chunk.js.map": "/muscle-tracker/static/js/453.9517329c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b782534f.css",
-    "static/js/main.bff1d6a0.js"
+    "static/css/main.114b434c.css",
+    "static/js/main.a89d4d54.js"
   ]
 }
