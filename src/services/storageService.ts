@@ -37,8 +37,12 @@ export class StorageService {
   static getWorkoutSessions(): WorkoutSession[] {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.WORKOUT_SESSIONS);
-      if (!data) return [];
-      
+      if (!data) {
+        const sampleSessions = this.getSampleWorkoutSessions();
+        this.saveWorkoutSessions(sampleSessions);
+        return sampleSessions;
+      }
+
       const sessions = JSON.parse(data);
       // Date オブジェクトを復元
       return sessions.map((session: any) => ({
@@ -253,6 +257,112 @@ export class StorageService {
       console.error('Failed to get storage info:', error);
       return { used: 0, total: 0 };
     }
+  }
+
+  // サンプルのワークアウトセッション
+  private static getSampleWorkoutSessions(): WorkoutSession[] {
+    return [
+      {
+        id: 'sample-session-1',
+        date: '2024-03-01',
+        exercises: [
+          {
+            id: 'sample-ex-1',
+            name: 'ベンチプレス',
+            category: '胸',
+            sets: [
+              { id: 'sample-set-1', reps: 10, weight: 60 },
+              { id: 'sample-set-2', reps: 8, weight: 65 },
+              { id: 'sample-set-3', reps: 6, weight: 70 },
+            ],
+          },
+          {
+            id: 'sample-ex-2',
+            name: 'ショルダープレス',
+            category: '肩',
+            sets: [
+              { id: 'sample-set-4', reps: 12, weight: 14 },
+              { id: 'sample-set-5', reps: 10, weight: 16 },
+              { id: 'sample-set-6', reps: 8, weight: 18 },
+            ],
+          },
+        ],
+        notes: 'フォームを意識して胸を追い込みました。',
+        duration: 70,
+        createdAt: new Date('2024-03-01T08:30:00'),
+        updatedAt: new Date('2024-03-01T09:40:00'),
+      },
+      {
+        id: 'sample-session-2',
+        date: '2024-03-03',
+        exercises: [
+          {
+            id: 'sample-ex-3',
+            name: 'スクワット',
+            category: '脚',
+            sets: [
+              { id: 'sample-set-7', reps: 10, weight: 80 },
+              { id: 'sample-set-8', reps: 8, weight: 90 },
+              { id: 'sample-set-9', reps: 6, weight: 100 },
+            ],
+          },
+          {
+            id: 'sample-ex-4',
+            name: 'ルーマニアンデッドリフト',
+            category: '脚',
+            sets: [
+              { id: 'sample-set-10', reps: 12, weight: 60 },
+              { id: 'sample-set-11', reps: 10, weight: 70 },
+              { id: 'sample-set-12', reps: 8, weight: 80 },
+            ],
+          },
+        ],
+        notes: '脚メインの日。フォームとレンジを意識。',
+        duration: 85,
+        createdAt: new Date('2024-03-03T07:45:00'),
+        updatedAt: new Date('2024-03-03T09:10:00'),
+      },
+      {
+        id: 'sample-session-3',
+        date: '2024-03-05',
+        exercises: [
+          {
+            id: 'sample-ex-5',
+            name: 'ラットプルダウン',
+            category: '背中',
+            sets: [
+              { id: 'sample-set-13', reps: 12, weight: 50 },
+              { id: 'sample-set-14', reps: 10, weight: 55 },
+              { id: 'sample-set-15', reps: 8, weight: 60 },
+            ],
+          },
+          {
+            id: 'sample-ex-6',
+            name: 'ダンベルロウ',
+            category: '背中',
+            sets: [
+              { id: 'sample-set-16', reps: 12, weight: 24 },
+              { id: 'sample-set-17', reps: 10, weight: 26 },
+              { id: 'sample-set-18', reps: 8, weight: 28 },
+            ],
+          },
+          {
+            id: 'sample-ex-7',
+            name: 'バーベルカール',
+            category: '腕',
+            sets: [
+              { id: 'sample-set-19', reps: 12, weight: 30 },
+              { id: 'sample-set-20', reps: 10, weight: 32 },
+              { id: 'sample-set-21', reps: 8, weight: 34 },
+            ],
+          },
+        ],
+        notes: '背中と腕のコンビネーション。最後にパンプ感あり。',
+        duration: 80,
+        createdAt: new Date('2024-03-05T19:00:00'),
+        updatedAt: new Date('2024-03-05T20:20:00'),
+      },
+    ];
   }
 }
 
